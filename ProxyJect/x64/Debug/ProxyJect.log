@@ -1,0 +1,3 @@
+﻿  ProxyJect.cpp
+C:\Users\coffee\boost_1_74_0\boost\bind.hpp(41): message : The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.
+  ProxyJect.vcxproj -> C:\Users\coffee\source\repos\ProxyJect\x64\Debug\ProxyJect.exe

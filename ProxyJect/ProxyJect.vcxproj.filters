@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Headers">
+      <UniqueIdentifier>{65f726d9-e1a5-440b-9856-aea418282e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fmt">
+      <UniqueIdentifier>{671e1cce-d31b-4e91-a3f5-76402c6fa4f2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcMan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProxyJect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigManager.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcMan.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\chrono.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\color.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\compile.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\core.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\format.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\format-inl.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\locale.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\os.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\ostream.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\posix.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\printf.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\ranges.h">
+      <Filter>Source Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProxyJect.h" />
+    <ClInclude Include="..\stub64\skCrypter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stub64\xor_encryption.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
