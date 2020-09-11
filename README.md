@@ -9,12 +9,13 @@ ProxyJect is POC (proof of concept) app for injecting dll files in to are target
 
 ### What it can be used for ?
 ProxyJect main usage is to inject dll files in to games for gamehacking.
-The benefit to a normal injection is that:
-1. The injector cant be detected by any signature based detections.
-2. The game cant backtrack the process handle to the real source.
-3. Depending on which proxy-process is selected can be used to hide any suspicious activitys.
+By bypassing features of common anti-cheats systems. Last but not least ProxyJect can be used 
+to elevate handle access rights and/or to inject debugging tools in to malware/viruses.
 
-Last but not least ProxyJect can be used to elevate handle access and/or to inject debugging tools in to malware/viruses.
+#### Examples for benefits to a normal injection:
+1. The injector cant be detected by any signature based detections because its not running anymore while the real injection takes place.
+2. The game cant backtrack the process handle to the real source because most traces will fall back to proxy application.
+3. Depending on which proxy-process is selected can be used to hide any suspicious or unnusual behaviours.
 
 ### How to use ?
 1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases/tag/ProxyJect-alpha-1.0) or compile your own version. ( make sure to include the stub64.dll )
@@ -25,14 +26,18 @@ Last but not least ProxyJect can be used to elevate handle access and/or to inje
 5. Run the target process to inject to.
 
 ### Support
-- Support Window 7-10(64bit) ( only tested on windows 10 version 1809 and 2004 )
-- Currently only supports 64bit proxy-process & dll files. ( x86 support will be added soon )
+- Support Window 10(64bit) ( Only **tested** on windows 10 version 1809 and 2004. But it should also run on windows 7 and higher **untested**))
+- Currently only supports **64bit** proxy-process & dll files. ( **x86 support will be added soon** )
 
 ### To-do list
-- Fix disable_log for stub64
-- Fix show_console for stub64
-- Add x86 support the dll and proxy
-- Add store & load dll from memory ( to hide source )
-- Add auto-updater
-- Add multiple injection methods
-- Add a more "hidden" way to communicate between loader and proxy process
+~will be done in order ;)~
+- Fix disable_log for stub64.
+- Fix show_console for stub64.
+- Add x86 support the dll and proxy.
+- Add encrypt loader and proxy communication.
+- Add unlink proxy module.
+- Add auto-update checker.
+- Add multiple injection methods with random auto selection option.
+- Add option for multiple process that can be used as proxy and a random auto selection for current running applications.
+- Add a more "hidden" way to communicate between loader and proxy process.
+- Add a real GUI for the loader to setup the settings.
