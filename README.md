@@ -27,7 +27,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 5. Run the target process to inject to.
 
 #### Example video
-[![ProxyJectVideo](http://i.imgur.com/7YTMFQp.png)](https://streamable.com/xn33g2")
+[![ProxyJectVideo](http://i.imgur.com/7YTMFQp.png)](https://streamable.com/xn33g2 "Click to watch video.")
 
 
 ### Support
