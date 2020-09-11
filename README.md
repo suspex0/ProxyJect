@@ -30,7 +30,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 - Currently only supports **64bit** proxy-process & dll files. ( **x86 support will be added soon** )
 
 ### To-do list
-~will be done in order ;)~
+~ will be worked on in this order ;) ~
 - Fix disable_log for stub64.
 - Fix show_console for stub64.
 - Add x86 support the dll and proxy.
