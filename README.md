@@ -20,11 +20,14 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 
 ### How to use ?
 1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases/tag/ProxyJect-alpha-1.0) or compile your own version. ( make sure to include the stub64.dll )
-2. Modify the **ProxyJect.json** file to your needs. If thefile dont exist run **ProxyJect.exe** once and it will auto-generate a config for you.
+2. Modify the **ProxyJect.json** file to your needs. If that file dont exist run **ProxyJect.exe** once and it will auto-generate a config for you.
 (You can place "none" in to config target-executable or the target-window as a veto keyword.)
 3. Run **ProxyJect.exe**
 4. Run your "ProxyApplication"
 5. Run the target process to inject to.
+
+#### Example video
+https://streamable.com/xn33g2
 
 ### Support
 - Support Window 10(64bit) ( Only **tested** on windows 10 version 1809 and 2004. But it should also run on windows 7 and higher **untested**))
@@ -32,7 +35,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 
 ### Special feature
 - Proxy stub dll file has string encryption to prevent any string based detection vectors
-- OpenProcess is manualy imported so Anti-Virus and/or Ani-Cheats see the api call not so easy
+- OpenProcess function is manualy imported to hide windows-api call
 
 ### To-do list
 ~ will be worked on in this order :wink: ~
