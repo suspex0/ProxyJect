@@ -8,7 +8,7 @@ ProxyJect is POC(proof of concept) app for injecting dll files in to are Target 
 "IMAGE HERE"
 
 ### What it can be used for ?
-ProxyJect main usage is to inject dll in to games for gamehacking.
+ProxyJect main usage is to inject dll files in to games for gamehacking.
 The benefit to a normal injection is that:
 1. The injector cant be detected by any signature detections.
 2. The game cant backtrack the process handle to the real source.
