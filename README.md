@@ -17,9 +17,9 @@ The benefit to a normal injection is that:
 Last but not least ProxyJect can be used to elevate handle access and/or to inject debugging tools in to malware/viruses.
 
 ### How to use ?
-1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases/tag/ProxyJect-alpha-1.0) or build your own version.
-2. Modify the ProxyJect.json file to your needs. If file dont exist run ProxyJect.exe once will auto-generate a config. (You can place "none" in to target-executable or the target-window as a veto keyword.)
-3. Run ProxyJect.exe
+1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases/tag/ProxyJect-alpha-1.0) or compile your own version. ( make sure to include the stub64.dll )
+2. Modify the **ProxyJect.json** file to your needs. If file dont exist run ProxyJect.exe once will auto-generate a config. (You can place "none" in to target-executable or the target-window as a veto keyword.)
+3. Run **ProxyJect.exe**
 4. Run your "ProxyApplication"
 5. Run the target process to inject to.
 
