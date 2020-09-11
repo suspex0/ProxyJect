@@ -3,7 +3,7 @@
 Inject Dll over a proxy process in to your target process. 
 
 ### What is ProxyJect ?
-ProxyJect is POC(proof of concept) app for injecting dll files in to are Target process. The big difference to a usual injector is that dll file dont get injected directly in to the target process, instead a **stub** dll will be loaded in to a selectable **proxy-process** and from there the actual dll file gets injected in to the target.
+ProxyJect is POC (proof of concept) app for injecting dll files in to are target process. The big difference to a usual injector is that dll file dont get injected directly in to the target process, instead a **stub** dll will be loaded in to a selectable **proxy-process** and from there the actual dll file gets injected in to the target.
 
 "IMAGE HERE"
 
@@ -18,7 +18,8 @@ Last but not least ProxyJect can be used to elevate handle access and/or to inje
 
 ### How to use ?
 1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases/tag/ProxyJect-alpha-1.0) or compile your own version. ( make sure to include the stub64.dll )
-2. Modify the **ProxyJect.json** file to your needs. If file dont exist run ProxyJect.exe once will auto-generate a config. (You can place "none" in to target-executable or the target-window as a veto keyword.)
+2. Modify the **ProxyJect.json** file to your needs. If thefile dont exist run **ProxyJect.exe** once and it will auto-generate a config for you.
+(You can place "none" in to config target-executable or the target-window as a veto keyword.)
 3. Run **ProxyJect.exe**
 4. Run your "ProxyApplication"
 5. Run the target process to inject to.
