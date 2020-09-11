@@ -30,6 +30,10 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 - Support Window 10(64bit) ( Only **tested** on windows 10 version 1809 and 2004. But it should also run on windows 7 and higher **untested**))
 - Currently only supports **64bit** proxy-process & dll files. ( **x86 support will be added soon** )
 
+### Special feature
+- Proxy stub dll file has string encryption to prevent any string based detection vectors
+- OpenProcess is manualy imported so Anti-Virus and/or Ani-Cheats see the api call not so easy
+
 ### To-do list
 ~ will be worked on in this order :wink: ~
 - Fix disable_log for stub64.
@@ -37,6 +41,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 - Add x86 support the dll and proxy.
 - Add encrypt loader and proxy communication.
 - Add unlink proxy module.
+- Add some generic options to randomize the proxy and loader.
 - Add auto-update checker.
 - Add multiple injection methods with random auto selection option.
 - Add option for multiple process that can be used as proxy and a random auto selection for current running applications.
