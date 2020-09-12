@@ -38,6 +38,11 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 - Proxy stub dll file has string encryption to prevent any string based detection vectors
 - OpenProcess function is manualy imported to hide windows-api call
 
+### Credits
+fmt lib - https://github.com/fmtlib/fmt
+fleep
+
+
 ### To-do list
 ~ will be worked on in this order :wink: ~
 - Fix disable_log for stub64.
