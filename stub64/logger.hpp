@@ -28,6 +28,7 @@ namespace common
 		return static_cast<log_color>(static_cast<std::underlying_type_t<log_color>>(a) | static_cast<std::underlying_type_t<log_color>>(b));
 	}
 
+
 	class logger;
 	logger *g_logger{};
 
@@ -51,13 +52,14 @@ namespace common
 				}
 
 				m_file_path /= "ProxyJect-proxy.log";
-				m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::app);
+				m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
 			}
 			catch (std::filesystem::filesystem_error const&)
 			{
 			}
+			
 
-			FreeConsole();
+			FreeConsole(); // Freeconsole if it already exist
 			if ((m_did_console_exist = AttachConsole(GetCurrentProcessId())) == false)
 				AllocConsole();
 
@@ -110,7 +112,7 @@ namespace common
 		void raw(log_color color, Args const &...args)
 		{
 			raw_to_console(color, args...);
-			raw_to_file(args...);
+			//raw_to_file(args...);
 		}
 
 		template <typename ...Args>

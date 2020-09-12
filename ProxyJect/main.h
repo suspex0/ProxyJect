@@ -41,6 +41,9 @@
 #include <optional>
 #include <variant>
 
+#include <shlwapi.h>
+#pragma comment(lib, "shlwapi.lib")
+
 // Custome
 #include "fmt/format.h"
 

@@ -29,6 +29,9 @@
     <ClCompile Include="ProxyJect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Injector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -79,12 +82,17 @@
     <ClInclude Include="logger.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProxyJect.h" />
     <ClInclude Include="..\stub64\skCrypter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\stub64\xor_encryption.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProxyJect.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Injector.h">
+      <Filter>Source Files\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfigManager.cpp" />
+    <ClCompile Include="Injector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProcMan.cpp" />
     <ClCompile Include="ProxyJect.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="fmt\posix.h" />
     <ClInclude Include="fmt\printf.h" />
     <ClInclude Include="fmt\ranges.h" />
+    <ClInclude Include="Injector.h" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ProcMan.h" />

@@ -155,6 +155,7 @@ bool ConfigManager::CreateInjectionConfig()
 
 	boost::property_tree::ptree pt;
 
+	pt.put("proxy.inject-delay", inject_cfg.injection_delay);
 	pt.put("proxy.disable-log", inject_cfg.disable_proxy_log);
 	pt.put("proxy.show-console", inject_cfg.show_proxy_console);
 	pt.put("proxy.target", inject_cfg.target_exe);
@@ -164,7 +165,7 @@ bool ConfigManager::CreateInjectionConfig()
 	boost::property_tree::write_json(file_path.generic_string(), pt);
 
 	// Recheck if everythign worked well
-	if (boost::filesystem::exists(file_path.generic_string()) && boost::filesystem::file_size(file_path.generic_string()) > 10) // bytes min else cant work anyway
+	if (boost::filesystem::exists(file_path.generic_string()) && boost::filesystem::file_size(file_path.generic_string()) > 100) // bytes min else cant work anyway
 		return true;
 	else
 		return false;

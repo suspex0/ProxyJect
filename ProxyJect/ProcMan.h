@@ -1,6 +1,5 @@
 #pragma once
 #include "main.h"
-#include "logger.hpp"
 
 class ProcMan
 {

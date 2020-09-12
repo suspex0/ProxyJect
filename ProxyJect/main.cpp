@@ -7,9 +7,8 @@ int main()
 {
 	try
 	{
-		
 		ProxyJect ProxyJect;
-		ProxyJect.WaitForTargets();
+		ProxyJect.WaitForProxy();
 		ProxyJect.ReceiveProxyHandle();
 		ProxyJect.InjectProxy();
 	}

@@ -2,7 +2,6 @@
 #include "logger.hpp"
 
 using namespace common;
-//#define SLEEP_THREAD(ms) (std::this_thread::sleep_for(std::chrono::seconds(ms)))
 
 BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
@@ -21,19 +20,25 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
 
                    if (!common::LoadInjectionConfig())
                    {
-                       LOG_ERROR("Cant load inject configuration!");
+                       LOG_ERROR(XorString("Cant load injection configuration!"));
                        std::this_thread::sleep_for(std::chrono::seconds(3));
                        ExitProcess(EXIT_FAILURE);
                    }
 
                    LOG_INFO(XorString("Prepareing injection.."));
-                   LOG_INFO("Target process: ", common::inject_cfg.target_exe.c_str());
                    common::set_console_visibility(common::inject_cfg.show_console);
 
-                   
+                   common::WaitForTarget();
+                   common::ReceiveTargetHandle();
+                   common::InjectTarget();
 
-                   LOG_WARN("Exit in 2 seconds..");
-                   std::this_thread::sleep_for(std::chrono::seconds(2));
+                   // Close handle
+                   if (common::hTarget != NULL && common::hTarget != INVALID_HANDLE_VALUE)
+                       CloseHandle(hTarget);
+
+                   LOG_RAW(common::log_color::green, "\n");
+                   LOG_WARN(XorString("Exit in 3 seconds.."));
+                   std::this_thread::sleep_for(std::chrono::seconds(3));
                }
                catch (std::exception const& ex)
                {

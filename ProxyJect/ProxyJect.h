@@ -5,6 +5,7 @@
 #include "logger.hpp"
 #include "ProcMan.h"
 #include "ConfigManager.h"
+#include "Injector.h"
 
 class ProxyJect
 {
@@ -14,7 +15,7 @@ class ProxyJect
 		~ProxyJect();
 
 		void ProxyJectLogo();
-		void WaitForTargets();
+		void WaitForProxy();
 		void ReceiveProxyHandle();
 		void InjectProxy();
 	
@@ -25,7 +26,5 @@ class ProxyJect
 		DWORD			proxyID = 0;
 		DWORD			targetID = 0;
 		HANDLE			hProxy = NULL;
-
-		bool inject_create_remote_thread(HANDLE Proc, const char* DllName);
+		
 };
-

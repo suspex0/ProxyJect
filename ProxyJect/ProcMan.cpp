@@ -39,7 +39,7 @@ void ProcMan::detected_win_debugger(HANDLE hProc)
 
 void ProcMan::close_handle_safe(HANDLE hProc)
 {
-	if (hProc != NULL && hProc != INVALID_HANDLE_VALUE)
+	if (hProc)
 	{
 		CloseHandle(hProc);
 	}
@@ -57,7 +57,6 @@ BOOL ProcMan::is_wow_64(HANDLE hProc)
 	{
 		if (!_IsWow64Process(hProc, &found))
 		{
-			LOG_ERROR("Handle error while checking if process is 64bit.");
 			return FALSE;
 		}
 	}

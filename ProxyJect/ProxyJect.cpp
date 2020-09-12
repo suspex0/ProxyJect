@@ -25,7 +25,6 @@ ProxyJect::ProxyJect()
 
 ProxyJect::~ProxyJect()
 {
-	proc.close_handle_safe(hProxy);
 	common::exit_log();
 }
 
@@ -45,7 +44,7 @@ void ProxyJect::ProxyJectLogo()
 	LOG_RAW(common::log_color::gray, "\n\n\tmade by blank | loader-version: 1.0\n\n");
 }
 
-void ProxyJect::WaitForTargets()
+void ProxyJect::WaitForProxy()
 {
 	bool found = false;
 	HWND hWindow = NULL;
@@ -79,15 +78,15 @@ void ProxyJect::ReceiveProxyHandle()
 	dyn_OpenProcess = (_OpenProcess)GetProcAddress(GetModuleHandleA(skCrypt("kernel32.dll")), skCrypt("OpenProcess"));
 
 	if (dyn_OpenProcess != NULL)
-		hProxy = dyn_OpenProcess(PROCESS_ALL_ACCESS, false, proxyID);
+		hProxy = dyn_OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD |  PROCESS_VM_OPERATION |  PROCESS_VM_WRITE | PROCESS_VM_READ, false, proxyID);
 	else
 	{
 		LOG_WARN("Cant create dynamic OpenProcess!");
-		hProxy = OpenProcess(PROCESS_ALL_ACCESS, false, proxyID);
+		hProxy = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, proxyID);
 	}
 
 #ifdef _DEBUG
-	LOG_RAW(common::log_color::green | common::log_color::intensify,"\tproxy process id: ", proxyID, "\n");
+	LOG_RAW(common::log_color::green | common::log_color::intensify,"\tProxy process id: ", proxyID, "\n");
 #endif // !_DEBUG
 
 	if (!hProxy || hProxy == INVALID_HANDLE_VALUE)
@@ -119,52 +118,14 @@ void ProxyJect::InjectProxy()
 		std::this_thread::sleep_for(std::chrono::seconds(3));
 		ExitProcess(EXIT_FAILURE);
 	}
-
-	if (inject_create_remote_thread(hProxy, cfg.stub64_dir))
-		LOG_INFO("Injected dll in to proxy.");
+	
+	if (ManualMap(hProxy, cfg.stub64_dir))
+		LOG_INFO("Successfully injected dll in to proxy process!");
 	else
-		LOG_ERROR("Error while injecting 'stub64.dll' in to the proxy target!");
+		LOG_ERROR("Error cant inject 'stub64.dll' in to the proxy target!");
 
 	
 	LOG_RAW(common::log_color::green | common::log_color::intensify, "\n\tExit process in 2 seconds..\n");
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
-bool ProxyJect::inject_create_remote_thread(HANDLE Proc, const char DllName[])
-{
-	try
-	{
-		
-#ifdef _DEBUG
-		LOG_RAW(common::log_color::green | common::log_color::intensify,"\tstub64 dll: ", DllName, "\n");
-		LOG_RAW(common::log_color::green | common::log_color::intensify,"\tlibary to inject: ", inject_cfg.dll_path, "\n");
-#endif // !_DEBUG
-
-		LPVOID LoadLibA = (LPVOID)GetProcAddress(GetModuleHandleA(skCrypt("kernel32.dll")), skCrypt("LoadLibraryA"));
-		if (!LoadLibA)
-		{
-			LOG_ERROR(XorString("Cant get 'LoadLibraryA' call for kernel32."));
-			return false;
-		}
-
-		// allocate space for the dll
-		LPVOID DllPath = VirtualAllocEx(Proc, NULL, strlen(DllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-
-		// write dll path to target memory
-		if (!WriteProcessMemory(Proc, DllPath, DllName, strlen(DllName), NULL))
-		{
-			LOG_ERROR(XorString("Cant write to targets process memory!"));
-			return false;
-		}
-
-		// load the dll by calling loadlibarya in the target
-		CreateRemoteThread(Proc, NULL, NULL, (LPTHREAD_START_ROUTINE)LoadLibA, (LPVOID)DllPath, NULL, NULL);
-	}
-	catch (std::exception const& ex)
-	{
-		LOG_ERROR(XorString("{}"), ex.what());
-		return false;
-	}
-
-	return true;
-}

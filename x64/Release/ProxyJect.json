@@ -1,0 +1,19 @@
+{
+    "ProxyJect": {
+        "loader": {
+            "show-console": "true",
+            "disable-logfiles": "true"
+        },
+        "inject": {
+            "delay": "1000",
+            "target-window": "none",
+            "target": "vlc.exe",
+            "dll-path": "C:\\Users\\coffee\\source\\repos\\ProxyJect\\x64\\Release\\DllExample.dll"
+        },
+        "proxy": {
+            "target": "notepad++.exe",
+            "show-console": "true",
+            "disable-logfiles": "false"
+        }
+    }
+}

@@ -1,8 +1,8 @@
 ﻿  dllmain.cpp
 C:\Users\coffee\boost_1_74_0\boost\bind.hpp(41): message : The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.
   Generating code
-  903 of 1322 functions (68.3%) were compiled, the rest were copied from previous compilation.
-    12 functions were new in current compilation
-    79 functions had inline decision re-evaluated but remain unchanged
+  72 of 1410 functions ( 5.1%) were compiled, the rest were copied from previous compilation.
+    19 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   stub64.vcxproj -> C:\Users\coffee\source\repos\ProxyJect\x64\Release\stub64.dll
