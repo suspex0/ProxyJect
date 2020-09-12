@@ -6,7 +6,7 @@ Inject Dll over a proxy process in to your target process.
 ### What is ProxyJect ?
 ProxyJect is POC (proof of concept) app for injecting dll files in to are target process. The big difference to a usual injector is that dll file dont get injected directly in to the target process, instead a **stub** dll will be loaded in to a selectable **proxy-process** and from there the actual dll file gets injected in to the target.
 
-![](https://github.com/suspex0/ProxyJect/blob/master/assets/video-thumbnail.png)
+![](https://github.com/suspex0/ProxyJect/blob/master/assets/proxyject.png | width=100)
 
 ### What it can be used for ?
 ProxyJect main usage is to inject dll files in to games for gamehacking.
