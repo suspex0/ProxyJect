@@ -39,7 +39,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 - OpenProcess function is manualy imported to hide windows-api call
 
 ### Credits
-fmt lib - [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt) 
+fmt lib - [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt).
 fleep
 
 
