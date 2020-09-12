@@ -13,7 +13,7 @@ ProxyJect main usage is to inject dll files in to games for gamehacking.
 By bypassing features of common anti-cheats systems. Last but not least ProxyJect can be used 
 to bypass handle access-rights restrictions and/or to inject debugging tools in to malware or viruses.
 
-#### Examples for benefits to a normal injection:
+#### Benefits to a normal injection:
 1. The injector cant be detected by any signature based detections because its not running anymore while the real injection takes place.
 2. The game cant backtrack the process handle to the real source because most traces will fall back to proxy application.
 3. Depending on which proxy-process is selected can be used to hide any suspicious or unnusual behaviours.
