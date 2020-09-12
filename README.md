@@ -11,7 +11,7 @@ ProxyJect is POC (proof of concept) app for injecting dll files in to are target
 ### What it can be used for ?
 ProxyJect main usage is to inject dll files in to games for gamehacking.
 By bypassing features of common anti-cheats systems. Last but not least ProxyJect can be used 
-to bypass handle access-rights restrictions and/or to inject debugging tools in to malware/viruses.
+to bypass handle access-rights restrictions and/or to inject debugging tools in to malware or viruses.
 
 #### Examples for benefits to a normal injection:
 1. The injector cant be detected by any signature based detections because its not running anymore while the real injection takes place.
@@ -39,7 +39,7 @@ to bypass handle access-rights restrictions and/or to inject debugging tools in 
 - OpenProcess function is manualy imported to hide windows-api call
 
 ### Credits
-fmt lib - [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt).
+fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
 fleep
 
 
