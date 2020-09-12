@@ -11,7 +11,7 @@ ProxyJect is POC (proof of concept) app for injecting dll files in to are target
 ### What it can be used for ?
 ProxyJect main usage is to inject dll files in to games for gamehacking.
 By bypassing features of common anti-cheats systems. Last but not least ProxyJect can be used 
-to elevate handle access rights and/or to inject debugging tools in to malware/viruses.
+to bypass handle access-rights restrictions and/or to inject debugging tools in to malware/viruses.
 
 #### Examples for benefits to a normal injection:
 1. The injector cant be detected by any signature based detections because its not running anymore while the real injection takes place.
@@ -27,7 +27,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 5. Run the target process to inject to.
 
 #### Example video
-[![ProxyJectVideo](https://raw.githubusercontent.com/suspex0/ProxyJect/master/assets/video-thumbnail.png)](https://streamable.com/xn33g2 "Click to watch video.")
+[![ProxyJectVideo](https://raw.githubusercontent.com/suspex0/ProxyJect/master/assets/video-thumbnail.png)](https://streamable.com/b55zxq "Click to watch video.")
 
 
 ### Support
@@ -51,7 +51,7 @@ fleep
 - Add encrypt loader and proxy communication.
 - Add unlink proxy module.
 - Add some generic options to randomize the proxy and loader.
-- Add auto-update checker.
+- Add update checker.
 - Add multiple injection methods with random auto selection option.
 - Add option for multiple process that can be used as proxy and a random auto selection for current running applications.
 - Add a more "hidden" way to communicate between loader and proxy process.
