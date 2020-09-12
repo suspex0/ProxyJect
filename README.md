@@ -6,7 +6,7 @@ Inject Dll over a proxy process in to your target process.
 ### What is ProxyJect ?
 ProxyJect is POC (proof of concept) app for injecting dll files in to are target process. The big difference to a usual injector is that dll file dont get injected directly in to the target process, instead a **stub** dll will be loaded in to a selectable **proxy-process** and from there the actual dll file gets injected in to the target.
 
-![proxyject-image](https://raw.githubusercontent.com/suspex0/ProxyJect/master/assets/proxyject.png)
+![proxyject-image](https://raw.githubusercontent.com/suspex0/ProxyJect/master/assets/proxyject.png | width=120)
 
 ### What it can be used for ?
 ProxyJect main usage is to inject dll files in to games for gamehacking.
@@ -34,7 +34,7 @@ to elevate handle access rights and/or to inject debugging tools in to malware/v
 - Support Window 10(64bit) ( Only **tested** on windows 10 version 1809 and 2004. But it should also run on windows 7 and higher **untested**))
 - Currently only supports **64bit** proxy-process & dll files. ( **x86 support will be added soon** )
 
-### Special feature
+### Special features
 - Proxy stub dll file has string encryption to prevent any string based detection vectors
 - OpenProcess function is manualy imported to hide windows-api call
 
