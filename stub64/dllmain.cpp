@@ -17,7 +17,6 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
                try
                {
                    common::ProxyJectLogo();
-
                    if (!common::LoadInjectionConfig())
                    {
                        LOG_ERROR(XorString("Cant load injection configuration!"));
@@ -25,9 +24,9 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
                        ExitProcess(EXIT_FAILURE);
                    }
 
-                   LOG_INFO(XorString("Prepareing injection.."));
                    common::set_console_visibility(common::inject_cfg.show_console);
 
+                   LOG_INFO(XorString("Prepareing injection.."));
                    common::WaitForTarget();
                    common::ReceiveTargetHandle();
                    common::InjectTarget();
@@ -36,7 +35,7 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
                    if (common::hTarget != NULL && common::hTarget != INVALID_HANDLE_VALUE)
                        CloseHandle(hTarget);
 
-                   LOG_RAW(common::log_color::green, "\n");
+                   LOG_RAW(common::log_color::green, XorString("\n"));
                    LOG_WARN(XorString("Exit in 3 seconds.."));
                    std::this_thread::sleep_for(std::chrono::seconds(3));
                }

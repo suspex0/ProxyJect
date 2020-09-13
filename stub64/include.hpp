@@ -42,12 +42,13 @@
 #include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
 
+#include "xor_encryption.h"
+#include "skCrypter.h"
+
 // Custome imports
 #include "fmt/format.h"
-#include "skCrypter.h"
 #include "logger.hpp"
 #include "../ProxyJect/ProcMan.h"
-#include "xor_encryption.h"
 #include "../ProxyJect/Injector.h"
 
 struct Injection
