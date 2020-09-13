@@ -55,7 +55,9 @@ namespace common
 				}
 
 				m_file_path /= XorString("ProxyJect-proxy.log");
-				m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
+				
+				if(!inject_cfg.disable_log)
+					m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
 			}
 			catch (std::filesystem::filesystem_error const&)
 			{
