@@ -1,8 +1,5 @@
 ﻿  dllmain.cpp
 C:\Users\coffee\boost_1_74_0\boost\bind.hpp(41): message : The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.
-  Generating code
-  99 of 1405 functions ( 7.0%) were compiled, the rest were copied from previous compilation.
-    33 functions were new in current compilation
-    14 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  stub64.vcxproj -> C:\Users\coffee\source\repos\ProxyJect\x64\Release\stub64.dll
+C:\Users\coffee\source\repos\ProxyJect\stub64\logger.hpp(71,17): error C2039: 'inject_cfg': is not a member of 'common'
+C:\Users\coffee\source\repos\ProxyJect\stub64\logger.hpp(10): message : see declaration of 'common'
+C:\Users\coffee\source\repos\ProxyJect\stub64\logger.hpp(71,1): error C2065: 'inject_cfg': undeclared identifier

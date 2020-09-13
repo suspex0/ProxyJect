@@ -1,4 +1,7 @@
 ﻿#pragma once
+#ifndef INCLUDE_H
+#define INCLUDE_H
+
 #include <Windows.h>
 
 #include <cinttypes>
@@ -220,3 +223,5 @@ namespace common
 		
 	}
 };
+
+#endif

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef LOGGER_HPP
+#define LOGGER_HPP
+
 #include "include.hpp"
 
 #define LOGGER_CONSOLE_FORMAT	XorString("%H:%M:%S")
@@ -65,7 +68,8 @@ namespace common
 			if ((m_console_handle = GetStdHandle(STD_OUTPUT_HANDLE)) != nullptr)
 			{
 				SetConsoleOutputCP(CP_UTF8);
-				m_console_out.open(XorString("CONOUT$"), std::ios_base::out | std::ios_base::app);
+				if(!common::inject_cfg.disable_log) 
+					m_console_out.open(XorString("CONOUT$"), std::ios_base::out | std::ios_base::app);
 			}
 
 			g_logger = this;
@@ -204,3 +208,5 @@ namespace common
 #define LOG_RAW_IMPL(color, ...) (::common::log_raw(color, __VA_ARGS__))
 #define LOG_RAW(color, ...) LOG_RAW_IMPL(color, __VA_ARGS__)
 }
+
+#endif

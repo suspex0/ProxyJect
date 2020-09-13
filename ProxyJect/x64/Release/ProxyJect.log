@@ -1,8 +1,8 @@
-﻿  ConfigManager.cpp
-C:\Users\coffee\boost_1_74_0\boost\bind.hpp(41): message : The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.
+﻿  Injector.cpp
+  ProcMan.cpp
   Generating code
-  8 of 1530 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  0 of 1530 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ProxyJect.vcxproj -> C:\Users\coffee\source\repos\ProxyJect\x64\Release\ProxyJect.exe

@@ -1,6 +1,5 @@
 #include "ProcMan.h"
 
-
 DWORD ProcMan::process_id_by_name(std::string name)
 {
 	HANDLE hProc;
