@@ -6,14 +6,14 @@
 
 namespace common
 {
-	static bool	m_did_console_exist{};
-	static HANDLE	m_console_handle{};
+	static bool						m_did_console_exist{};
+	static HANDLE					m_console_handle{};
 
-	static std::ofstream m_console_out;
-	static std::ofstream m_file_out;
-	static std::filesystem::path m_file_path;
+	static std::ofstream			m_console_out;
+	static std::ofstream			m_file_out;
+	static std::filesystem::path	m_file_path;
 
-	static bool disabled_log_write = false;
+	static bool						disabled_log_write = false;
 
 	enum class log_color : std::uint16_t
 	{

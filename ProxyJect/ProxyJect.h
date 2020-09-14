@@ -5,7 +5,6 @@
 #include "logger.hpp"
 #include "ProcMan.h"
 #include "ConfigManager.h"
-#include "Injector.h"
 
 class ProxyJect
 {

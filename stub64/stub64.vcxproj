@@ -154,12 +154,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\ProxyJect\Injector.cpp" />
     <ClCompile Include="..\ProxyJect\ProcMan.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Injector.cpp" />
+    <ClCompile Include="security.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ProxyJect\Injector.h" />
     <ClInclude Include="..\ProxyJect\ProcMan.h" />
     <ClInclude Include="fmt\chrono.h" />
     <ClInclude Include="fmt\color.h" />
@@ -174,7 +174,9 @@
     <ClInclude Include="fmt\printf.h" />
     <ClInclude Include="fmt\ranges.h" />
     <ClInclude Include="include.hpp" />
+    <ClInclude Include="Injector.h" />
     <ClInclude Include="logger.hpp" />
+    <ClInclude Include="security.h" />
     <ClInclude Include="skCrypter.h" />
     <ClInclude Include="xor_encryption.h" />
   </ItemGroup>

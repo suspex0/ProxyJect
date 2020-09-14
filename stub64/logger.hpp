@@ -1,6 +1,6 @@
-#pragma once
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
+#pragma once
 
 #include "include.hpp"
 
@@ -33,7 +33,7 @@ namespace common
 
 
 	class logger;
-	logger *g_logger{};
+	logger *_logger{};
 
 	class logger
 	{
@@ -55,9 +55,7 @@ namespace common
 				}
 
 				m_file_path /= XorString("ProxyJect-proxy.log");
-				
-				if(!inject_cfg.disable_log)
-					m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
+				m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
 			}
 			catch (std::filesystem::filesystem_error const&)
 			{
@@ -65,16 +63,15 @@ namespace common
 			
 			FreeConsole(); // Freeconsole if it already exist
 			if ((m_did_console_exist = AttachConsole(GetCurrentProcessId())) == false)
-				AllocConsole();
+				AllocConsole(); // allocate console
 
-			if ((m_console_handle = GetStdHandle(STD_OUTPUT_HANDLE)) != nullptr)
+			if ((m_console_handle = GetStdHandle(STD_OUTPUT_HANDLE)) != nullptr) // Get std handle
 			{
 				SetConsoleOutputCP(CP_UTF8);
-				if(!common::inject_cfg.disable_log) 
-					m_console_out.open(XorString("CONOUT$"), std::ios_base::out | std::ios_base::app);
+				m_console_out.open(XorString("CONOUT$"), std::ios_base::out | std::ios_base::app);
 			}
 
-			g_logger = this;
+			_logger = this;
 		}
 
 		~logger()
@@ -82,11 +79,11 @@ namespace common
 			if (!m_did_console_exist)
 				FreeConsole();
 
-			g_logger = nullptr;
+			_logger = nullptr;
 		}
 
 		template <typename T>
-		static int convert_ms(const std::chrono::time_point<T>& tp)
+		 int convert_ms(const std::chrono::time_point<T>& tp)
 		{
 			using namespace std::chrono;
 
@@ -94,7 +91,7 @@ namespace common
 			return static_cast<int>(duration_cast<milliseconds>(dur).count());
 		}
 
-		static std::string get_time_stamp(const char time_format[])
+		std::string get_time_stamp(const char time_format[])
 		{
 			auto now = std::chrono::system_clock::now();
 			std::time_t current_time = std::chrono::system_clock::to_time_t(now);
@@ -165,36 +162,36 @@ namespace common
 	template <typename ...Args>
 	inline void log_info(std::string_view format, Args const &...args)
 	{
-		if (g_logger)
+		if (_logger)
 		{
-			g_logger->log(log_color::blue | log_color::intensify, XorString("Info "), format, args...);
+			_logger->log(log_color::blue | log_color::intensify, XorString("Info "), format, args...);
 		}
 	}
 
 	template <typename ...Args>
 	inline void log_error(std::string_view format, Args const &...args)
 	{
-		if (g_logger)
+		if (_logger)
 		{
-			g_logger->log(log_color::red | log_color::intensify, XorString("Error"), format, args...);
+			_logger->log(log_color::red | log_color::intensify, XorString("Error"), format, args...);
 		}
 	}
 
 	template <typename ...Args>
 	inline void log_warn(std::string_view format, Args const &...args)
 	{
-		if (g_logger)
+		if (_logger)
 		{
-			g_logger->log(log_color::green | log_color::intensify, XorString("Warn "), format, args...);
+			_logger->log(log_color::green | log_color::intensify, XorString("Warn "), format, args...);
 		}
 	}
 
 	template <typename ...Args>
 	inline void log_raw(log_color color, Args const &...args)
 	{
-		if (g_logger)
+		if (_logger)
 		{
-			g_logger->raw(color, args...);
+			_logger->raw(color, args...);
 		}
 	}
 

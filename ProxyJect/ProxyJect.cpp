@@ -1,6 +1,7 @@
 ﻿#include "ProxyJect.h"
 #include "../stub64/xor_encryption.h"
 #include "../stub64/skCrypter.h"
+#include "Injector.h"
 
 ProxyJect::ProxyJect()
 {
@@ -108,6 +109,7 @@ void ProxyJect::ReceiveProxyHandle()
 
 void ProxyJect::InjectProxy()
 {
+
 	if (cfg.CreateInjectionConfig())
 	{
 		LOG_INFO("Successfully created proxy setup.");
@@ -119,7 +121,20 @@ void ProxyJect::InjectProxy()
 		ExitProcess(EXIT_FAILURE);
 	}
 	
-	if (ManualMap(hProxy, cfg.stub64_dir))
+	/*
+	
+	std::string Helper = cfg.stub64_dir;
+	std::wstring wHelper(Helper.begin(), Helper.end());
+	HINSTANCE__* hOut;
+	DWORD error = 0;
+	_ManualMap(wHelper.c_str(), hProxy, LM_HijackThread, 0, hOut, error);
+	LOG_INFO("error code: ", error);
+	
+	*/
+
+	_Injector Injector(cfg.stub64_dir, hProxy, 0); // set inject-delay 0
+
+	if (Injector.ManualMap())
 		LOG_INFO("Successfully injected dll in to proxy process!");
 	else
 		LOG_ERROR("Error cant inject 'stub64.dll' in to the proxy target!");

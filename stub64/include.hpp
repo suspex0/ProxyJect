@@ -203,24 +203,13 @@ namespace common
 
 	void InjectTarget()
 	{
-		if (inject_cfg.inject_delay > 0)
-		{
-			LOG_INFO(XorString("Delaying injections by '"), inject_cfg.inject_delay, XorString("' ms."));
-			std::this_thread::sleep_for(std::chrono::milliseconds(inject_cfg.inject_delay));
-		}
+		// Setup injector configuration
+		_Injector Injector(inject_cfg.dll_path.c_str(), hTarget, inject_cfg.inject_delay);
 
-		if (boost::filesystem::exists(inject_cfg.dll_path))
-		{
-			if (ManualMap(hTarget, inject_cfg.dll_path.c_str()))
-				LOG_INFO(XorString("Successfully injected dll in to the target!"));
-			else
-				LOG_ERROR(XorString("Cant inject dll to target process!"));
-		}
+		if (Injector.ManualMap())
+			LOG_INFO(XorString("Successfully injected dll into target process!"));
 		else
-		{
-			LOG_ERROR(XorString("Cant inject in to target process, dll file is invalid!"));
-		}
-		
+			LOG_ERROR(XorString("Couldnt inject dll into target process!"));
 	}
 };
 
