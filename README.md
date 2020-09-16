@@ -49,7 +49,7 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 - Add my hijack-handle function (if a handle to target process exist from proxy)
 - Fix disable_log for stub64
 - Fix show_console for stub64
-- Add x86 support the dll and proxy
+- Add x86 support for the dll and proxy
 - Add encrypt loader and proxy communication
 - Add unlink own module in proxy
 - Add some generic options to randomize the proxy and loader
