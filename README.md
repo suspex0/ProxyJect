@@ -1,7 +1,7 @@
 # ProxyJect
 ## ALPHA VERSION STILL IN DEVELOPMENT
 "LOGO IN WORK"
-Inject Dll over a proxy process in to your target process. 
+- Inject Dll over a proxy process in to your target process. 
 
 ### What is ProxyJect?
 ProxyJect is POC (proof of concept) app for injecting dll files into a target process. The big difference to a usual injector is that dll file doesn't get injected directly into the target process. Instead, a **stub** dll will be loaded into a selectable **proxy-process** and from there the actual dll file gets injected into the target.
@@ -38,8 +38,8 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 - OpenProcess function is manually imported to hide windows-api call
 
 ### Credits
-- fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
-- fleep
+- Fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
+- Fleep
 - Broihon
 
 
