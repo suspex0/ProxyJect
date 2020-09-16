@@ -51,7 +51,7 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 - Fix show_console for stub64
 - Add x86 support the dll and proxy
 - Add encrypt loader and proxy communication
-- Add unlink proxy module
+- Add unlink own module in proxy
 - Add some generic options to randomize the proxy and loader
 - Add update checker
 - Add multiple injection methods with random auto selection option
