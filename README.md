@@ -38,9 +38,9 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 - OpenProcess function is manually imported to hide windows-api call
 
 ### Credits
--fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
--fleep
--Broihon
+- fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
+- fleep
+- Broihon
 
 
 ### To-do list
