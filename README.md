@@ -21,7 +21,7 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 ```
 Log files of ProxyJect your find under C:\Users\username\AppData\Roaming\ProxyJect\
 ```
-1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases/tag/ProxyJect-alpha-1.0) or compile your own version (make sure that you include the stub64.dll).
+1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases) or compile your own version (make sure that you include the stub64.dll).
 2. Modify the **ProxyJect.json** file to your needs. If that file dosen't exist, run **ProxyJect.exe** once and it will auto-generate a config for you.
 (You can place "none" as veto keyword into your configuration file to replace one of the options "target-executable" or "target-window")
 3. Run **ProxyJect.exe**
