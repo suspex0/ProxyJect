@@ -111,7 +111,7 @@ namespace Common
 
 			if ((m_console_handle = GetStdHandle(STD_OUTPUT_HANDLE)) != nullptr)
 			{
-				SetConsoleTitleA(XorString("\0"));
+				// SetConsoleTitleA(XorString("\0")); not needed will take the name from the proxy process
 				SetConsoleOutputCP(CP_UTF8);
 
 				m_console_out.open("CONOUT$", std::ios_base::out | std::ios_base::app);
