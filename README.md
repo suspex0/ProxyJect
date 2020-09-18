@@ -1,6 +1,8 @@
-<div style="text-align:center"><img src="https://github.com/suspex0/ProxyJect/blob/master/assets/logo.png" /></div>
+![image](https://github.com/suspex0/ProxyJect/blob/master/assets/logo.png)
 Inject Dll over a proxy process in to your target process. 
-```ALPHA VERSION STILL IN DEVELOPMENT```
+```
+ALPHA VERSION STILL IN DEVELOPMENT
+```
 
 ### What is ProxyJect?
 ProxyJect is POC (proof of concept) app for injecting dll files into a target process. The big difference to a usual injector is that dll file doesn't get injected directly into the target process. Instead, a **stub** dll will be loaded into a selectable **proxy-process** and from there the actual dll file gets injected into the target.
