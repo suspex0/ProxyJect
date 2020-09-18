@@ -54,6 +54,7 @@ Log files of ProxyJect you find under C:\Users\username\AppData\Roaming\ProxyJec
 
 ```
 - Add x86 support for the dll and proxy
+- Add handle hijack from proxy if a handle exist to target
 - Add encrypt loader and proxy communication
 - Add unlink proxy module
 - Add some generic options to randomize the proxy and loader 
