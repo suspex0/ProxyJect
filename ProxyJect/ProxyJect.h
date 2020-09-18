@@ -11,7 +11,6 @@ class ProxyJect
 
 	public:
 		ProxyJect();
-		~ProxyJect();
 
 		void ProxyJectLogo();
 		void WaitForProxy();
@@ -19,7 +18,7 @@ class ProxyJect
 		void InjectProxy();
 	
 	private:
-		ConfigManager	cfg;
+		ConfigManager*	cfg;
 		ProcMan			proc;
 		Injection		inject_cfg;
 		DWORD			proxyID = 0;

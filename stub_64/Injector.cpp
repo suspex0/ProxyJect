@@ -100,7 +100,7 @@ BOOL _Injector::ManualMap()
 	if (!GetFileAttributesA(dll_path))
 	{
 #ifdef _DEBUG
-		printf("File doesn't exist\n");
+		LOG_ERROR("File doesn't exist\n");
 #endif // _DEBUG
 		return FALSE;
 	}
@@ -110,7 +110,7 @@ BOOL _Injector::ManualMap()
 	if (File.fail())
 	{
 #ifdef _DEBUG
-		printf("Opening the file failed: %X\n", (DWORD)File.rdstate());
+		LOG_ERROR("Opening the file failed: %X\n", (DWORD)File.rdstate());
 #endif // _DEBUG
 		File.close();
 		return FALSE;
@@ -120,7 +120,7 @@ BOOL _Injector::ManualMap()
 	if (FileSize < 0x1000)
 	{
 #ifdef _DEBUG
-		printf("Filesize is invalid.\n");
+		LOG_ERROR("Filesize is invalid.\n");
 #endif // _DEBUG
 		File.close();
 		return FALSE;
@@ -130,7 +130,7 @@ BOOL _Injector::ManualMap()
 	if (!pSrcData)
 	{
 #ifdef _DEBUG
-		printf("Memory allocating failed\n");
+		LOG_ERROR("Memory allocating failed\n");
 #endif // _DEBUG
 		File.close();
 		return FALSE;
@@ -143,7 +143,7 @@ BOOL _Injector::ManualMap()
 	if (reinterpret_cast<IMAGE_DOS_HEADER*>(pSrcData)->e_magic != 0x5A4D) //"MZ"
 	{
 #ifdef _DEBUG
-		printf("Invalid file\n");
+		LOG_ERROR("Invalid file\n");
 #endif // _DEBUG
 		delete[] pSrcData;
 		return FALSE;
@@ -156,14 +156,14 @@ BOOL _Injector::ManualMap()
 #ifdef _WIN64
 	if (pOldFileHeader->Machine != IMAGE_FILE_MACHINE_AMD64)
 	{
-		printf("\tInvalid platform dll should be 64bit.\n");
+		LOG_ERROR("\tInvalid platform dll should be 64bit.\n");
 		delete[] pSrcData;
 		return FALSE;
 	}
 #else
 	if (pOldFileHeader->Machine != IMAGE_FILE_MACHINE_I386)
 	{
-		printf("Invalid platform dll should be 32bit.\n");
+		LOG_ERROR("Invalid platform dll should be 32bit.\n");
 		delete[] pSrcData;
 		return FALSE;
 	}
@@ -176,7 +176,7 @@ BOOL _Injector::ManualMap()
 		if (!pTargetBase)
 		{
 #ifdef _DEBUG
-			printf("Memory allocation failed (ex) 0x%X\n", GetLastError());
+			LOG_ERROR("Memory allocation failed (ex) 0x%X\n", GetLastError());
 #endif // _DEBUG
 			delete[] pSrcData;
 			return FALSE;
@@ -195,7 +195,7 @@ BOOL _Injector::ManualMap()
 			if (!WriteProcessMemory(hProcess, pTargetBase + pSectionHeader->VirtualAddress, pSrcData + pSectionHeader->PointerToRawData, pSectionHeader->SizeOfRawData, nullptr))
 			{
 #ifdef _DEBUG
-				printf("Can't map sections: 0x%x\n", GetLastError());
+				LOG_ERROR("Can't map sections: 0x%x\n", GetLastError());
 #endif // _DEBUG
 				delete[] pSrcData;
 				VirtualFreeEx(hProcess, pTargetBase, 0, MEM_RELEASE);
@@ -208,7 +208,7 @@ BOOL _Injector::ManualMap()
 	if (!WriteProcessMemory(hProcess, pTargetBase, pSrcData, 0x1000, nullptr))
 	{
 #ifdef _DEBUG
-		printf("Cant write TargetBase to memory\n");
+		LOG_ERROR("Cant write TargetBase to memory\n");
 #endif // _DEBUG
 	}
 
@@ -218,7 +218,7 @@ BOOL _Injector::ManualMap()
 	if (!pShellcode)
 	{
 #ifdef _DEBUG
-		printf("Memory allocation failed (1) (ex) 0x%X\n", GetLastError());
+		LOG_ERROR("Memory allocation failed (1) (ex) 0x%X\n", GetLastError());
 #endif // _DEBUG
 		VirtualFreeEx(hProcess, pTargetBase, 0, MEM_RELEASE);
 		return FALSE;
@@ -227,7 +227,7 @@ BOOL _Injector::ManualMap()
 	if (!WriteProcessMemory(hProcess, pShellcode, Shellcode, 0x1000, nullptr))
 	{
 #ifdef _DEBUG
-		printf("Cant write Shellcode to memory\n");
+		LOG_ERROR("Cant write Shellcode to memory\n");
 #endif // _DEBUG
 	}
 
@@ -235,15 +235,14 @@ BOOL _Injector::ManualMap()
 	if (!hThread)
 	{
 #ifdef _DEBUG
-		printf("Thread creation failed 0x%X\n", GetLastError());
+		LOG_ERROR("Thread creation failed 0x%X\n", GetLastError());
 #endif // _DEBUG
 		VirtualFreeEx(hProcess, pTargetBase, 0, MEM_RELEASE);
 		VirtualFreeEx(hProcess, pShellcode, 0, MEM_RELEASE);
 		return FALSE;
 	}
 
-	if(hThread)
-		CloseHandle(hThread);
+	CloseHandle(hThread);
 
 	// Check 
 	HINSTANCE hCheck = NULL;

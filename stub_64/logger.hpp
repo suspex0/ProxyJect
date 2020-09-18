@@ -1,9 +1,54 @@
 #pragma once
 
-#include "main.h"
+#include <Windows.h>
+#include <TlHelp32.h>
 
-#define LOGGER_CONSOLE_FORMAT	"%H:%M:%S"
-#define LOGGER_FILE_FORMAT		"%Y-%m-%d %H:%M:%S"
+#include <cinttypes>
+#include <cstddef>
+#include <cstdint>
+
+#include <chrono>
+#include <ctime>
+
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+
+#include <atomic>
+#include <mutex>
+#include <thread>
+
+#include <memory>
+#include <new>
+
+#include <sstream>
+#include <string_view>
+
+#include <algorithm>
+#include <functional>
+#include <utility>
+
+#include <stack>
+#include <vector>
+
+#include <typeinfo>
+#include <type_traits>
+
+#include <exception>
+#include <stdexcept>
+
+#include <any>
+#include <optional>
+#include <variant>
+
+// Custome
+#include "fmt/format.h" 
+#include "xor_encryption.h"
+#include "skCrypter.h"
+
+#define LOGGER_CONSOLE_FORMAT	XorString("%H:%M:%S")
+#define LOGGER_FILE_FORMAT		XorString("%Y-%m-%d %H:%M:%S")
 
 namespace Common
 {
@@ -36,9 +81,9 @@ namespace Common
 	{
 	public:
 		explicit logger() :
-			m_file_path(std::getenv("appdata"))
+			m_file_path(std::getenv(skCrypt("appdata")))
 		{
-			m_file_path /= "ProxyJect";
+			m_file_path /= XorString("ProxyJect");
 			try
 			{
 				if (!std::filesystem::exists(m_file_path))
@@ -51,7 +96,8 @@ namespace Common
 					std::filesystem::create_directory(m_file_path);
 				}
 
-				m_file_path /= "ProxyJect-proxy.log";
+				m_file_path /= XorString("ProxyJect-proxy.log");
+				
 				if(!disabled_log)
 					m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
 			}
@@ -59,17 +105,16 @@ namespace Common
 			{
 			}
 
-			// FreeConsole(); // if already exist
+			FreeConsole(); // if already exist
 			if ((m_did_console_exist = AttachConsole(GetCurrentProcessId())) == false)
 				AllocConsole();
 
 			if ((m_console_handle = GetStdHandle(STD_OUTPUT_HANDLE)) != nullptr)
 			{
-				SetConsoleTitleA("\0");
+				SetConsoleTitleA(XorString("\0"));
 				SetConsoleOutputCP(CP_UTF8);
 
 				m_console_out.open("CONOUT$", std::ios_base::out | std::ios_base::app);
-				freopen_s(&fp, "CONIN$", "r", stdin);
 			}
 
 			_logger = this;
@@ -79,12 +124,10 @@ namespace Common
 		{
 			if (!m_did_console_exist)
 			{
+				set_console_visibility(false);
 				FreeConsole();
 				m_console_out.close();
 			}
-
-			if (fp)
-				fclose(fp);
 
 			_logger = nullptr;
 		}
@@ -111,7 +154,7 @@ namespace Common
 
 			int ms = convert_ms(now) % 1000;
 
-			string_size += std::snprintf(buffer + string_size, sizeof(buffer) - string_size, ".%03d", ms);
+			string_size += std::snprintf(buffer + string_size, sizeof(buffer) - string_size, XorString(".%03d"), ms);
 
 			return std::string(buffer, buffer + (int)(string_size));
 		}
@@ -129,10 +172,10 @@ namespace Common
 			auto console_timestamp = get_time_stamp(LOGGER_CONSOLE_FORMAT);	// REMOVED fmt functions for now made sometimes issues in the client.. will redo it in feature.
 			auto file_timestamp = get_time_stamp(LOGGER_FILE_FORMAT);		// 
 
-			raw_to_console(color, "\t", console_timestamp, " - ", prefix, " - ", format, args..., "\n");
+			raw_to_console(color, XorString("\t"), console_timestamp, XorString(" - "), prefix, XorString(" - "), format, args..., XorString("\n"));
 			
 			if(!disabled_log)
-				raw_to_file(file_timestamp, " - ", prefix, " - ", format, args..., "\n");
+				raw_to_file(file_timestamp, XorString(" - "), prefix, XorString(" - "), format, args..., XorString("\n"));
 		}
 
 		void disable_log(bool state)
@@ -172,7 +215,6 @@ namespace Common
 		bool m_did_console_exist{};
 		HANDLE m_console_handle{};
 		std::ofstream m_console_out;
-		FILE* fp = NULL;
 		std::filesystem::path m_file_path;
 		std::ofstream m_file_out;
 	};
@@ -182,7 +224,7 @@ namespace Common
 	{
 		if (_logger)
 		{
-			_logger->log(log_color::blue | log_color::intensify, "Info ", format, args...);
+			_logger->log(log_color::blue | log_color::intensify, XorString("Info "), format, args...);
 		}
 	}
 
@@ -191,7 +233,7 @@ namespace Common
 	{
 		if (_logger)
 		{
-			_logger->log(log_color::red | log_color::intensify, "Error", format, args...);
+			_logger->log(log_color::red | log_color::intensify, XorString("Error"), format, args...);
 		}
 	}
 
@@ -200,7 +242,7 @@ namespace Common
 	{
 		if (_logger)
 		{
-			_logger->log(log_color::green | log_color::intensify, "Warn ", format, args...);
+			_logger->log(log_color::green | log_color::intensify, XorString("Warn "), format, args...);
 		}
 	}
 

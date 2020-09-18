@@ -38,7 +38,7 @@ void ProcMan::detected_win_debugger(HANDLE hProc)
 void ProcMan::close_handle_safe(HANDLE hProc)
 {
 	__try {
-		if (hProc)
+		if (hProc && hProc != NULL && hProc != INVALID_HANDLE_VALUE)
 			CloseHandle(hProc);
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER) {

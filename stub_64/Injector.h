@@ -1,9 +1,10 @@
 #ifndef INJECTOR_H
 #define INJECTOR_H
 
-#pragma once
 #include <Windows.h>
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "ProcMan.h"
 
 using f_LoadLibraryA = HINSTANCE(WINAPI*)(const char* lpLibFilename);
@@ -41,10 +42,15 @@ class _Injector
 
 		}
 
+		~_Injector()
+		{
+			proc.close_handle_safe(hProcess);
+		}
+
 		BOOL ManualMap();
 
 	private:
-
+		ProcMan proc;
 		int injection_delay = 0;
 		const char* dll_path;
 		HANDLE hProcess = NULL;

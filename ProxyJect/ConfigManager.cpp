@@ -1,7 +1,7 @@
 #include "ConfigManager.h"
 #include "logger.hpp"
 
-#define LOG_CFG(msg) (printf_s("[CONFIGURATION-ERROR] %s", msg))
+using namespace Common;
 
 ConfigManager::ConfigManager()
 {
@@ -20,7 +20,7 @@ ConfigManager::ConfigManager()
 #ifndef _DEBUG
 	if (!std::filesystem::exists(stub64_dir))
 	{
-		LOG_CFG("Dependency 'stub64.dll' is missing!\n");
+		LOG_ERROR("Dependency 'stub64.dll' is missing!\n");
 		std::this_thread::sleep_for(std::chrono::seconds(3));
 		ExitProcess(EXIT_FAILURE);
 	}
@@ -32,13 +32,13 @@ ConfigManager::ConfigManager()
 		// Create standard config
 		if (!CreateConfigFile(current_dir))
 		{
-			common::set_console_visibility(true);
-			LOG_CFG("Cant create or write to config file.\nExit in 3 seconds..\n");
+			set_console_visibility(true);
+			LOG_ERROR("Cant create or write to config file.\nExit in 3 seconds..\n");
 			std::this_thread::sleep_for(std::chrono::seconds(3));
 			ExitProcess(EXIT_FAILURE);
 		}
 
-		common::set_console_visibility(true);
+		set_console_visibility(true);
 		printf_s("[INFO] Created standard config file! Please modify it before using ProxyJect.\nExit in 3 seconds..\n");
 		std::this_thread::sleep_for(std::chrono::seconds(3));
 		ExitProcess(EXIT_SUCCESS);
@@ -58,7 +58,7 @@ bool ConfigManager::CreateConfigFile(const char dir[])
 	obj.disable_log = false;
 	obj.injection_delay = 10;
 	obj.target_window = "WindowName";
-	obj.target_exe = "Target.exe";
+	obj.target_exe = "vlc.exe";
 	obj.dll_path = "C:\\example.dll";
 	obj.proxy_target = "notepad++.exe";
 	obj.show_proxy_console = true;
@@ -109,38 +109,50 @@ Injection ConfigManager::LoadConfigFile(const char dir[])
 
 	bool error_found = false;
 
-	// Basic/Ghetto error check for configuration
+	// Ghetto error check for configuration
 	if (obj.target_exe == "none" && obj.target_window == "none")
 	{
-		common::set_console_visibility(true);
-		LOG_CFG("Please enter atleast one of parameters for the target executable(target.exe) or window name!\n");
+		set_console_visibility(true);
+		LOG_ERROR("Please enter atleast one of parameters for the target executable(target.exe) or window name!\n");
 		error_found = true;
 	}
 	
 	if (strlen(obj.target_exe.c_str()) <= 3 || strlen(obj.target_window.c_str()) < 1 || strlen(obj.proxy_target.c_str()) <= 3 || strlen(obj.dll_path.c_str()) <= 3)
 	{
-		common::set_console_visibility(true);
-		LOG_CFG("One of config parameters is missing or is invalid!\n");
+		set_console_visibility(true);
+		LOG_ERROR("One of config parameters is missing or is invalid!\n");
 		error_found = true;
 	}
 
 	if (obj.dll_path == "none")
 	{
-		common::set_console_visibility(true);
-		LOG_CFG("The dll path cant be 'none'!\n");
+		set_console_visibility(true);
+		LOG_ERROR("The dll path cant be 'none'!\n");
 		error_found = true;
 	}
 
+#ifndef _DEBUG
+
+	if (!std::filesystem::exists(obj.dll_path))
+	{
+		set_console_visibility(true);
+		LOG_ERROR("Dll path is invalid cant find valid file to inject!\n");
+		error_found = true;
+	}
+
+#endif // !_DEBUG
+
+
 	if (obj.proxy_target == "none")
 	{
-		common::set_console_visibility(true);
-		LOG_CFG("The proxy executable cant be 'none'!\n");
+		set_console_visibility(true);
+		LOG_ERROR("The proxy executable cant be 'none'!\n");
 		error_found = true;
 	}
 
 	if (error_found)
 	{
-		LOG_CFG("Exit in 3 seconds..\n");
+		LOG_ERROR("Exit in 3 seconds..\n");
 		std::this_thread::sleep_for(std::chrono::seconds(3));
 		ExitProcess(EXIT_FAILURE);
 	}
@@ -165,7 +177,7 @@ bool ConfigManager::CreateInjectionConfig()
 	boost::property_tree::write_json(file_path.generic_string(), pt);
 
 	// Recheck if everythign worked well
-	if (boost::filesystem::exists(file_path.generic_string()) && boost::filesystem::file_size(file_path.generic_string()) > 100) // bytes min else cant work anyway
+	if (boost::filesystem::exists(file_path.generic_string()) && boost::filesystem::file_size(file_path.generic_string()) > 100)
 		return true;
 	else
 		return false;

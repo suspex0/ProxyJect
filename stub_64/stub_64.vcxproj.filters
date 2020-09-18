@@ -5,46 +5,44 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Headers">
-      <UniqueIdentifier>{65f726d9-e1a5-440b-9856-aea418282e6a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\fmt">
-      <UniqueIdentifier>{671e1cce-d31b-4e91-a3f5-76402c6fa4f2}</UniqueIdentifier>
+      <UniqueIdentifier>{587395d2-5127-486b-ab59-e9fb02abb2e2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\obfuscate">
-      <UniqueIdentifier>{697a105b-bbc1-402f-857d-df707add8178}</UniqueIdentifier>
+      <UniqueIdentifier>{0bb9d728-3ebd-4187-8365-843dded894f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ProcMan.cpp">
+    <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConfigManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProxyJect.cpp">
+    <ClCompile Include="StubClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcMan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Injector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="security.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>Source Files\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ConfigManager.h">
-      <Filter>Source Files\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ProcMan.h">
-      <Filter>Source Files\Headers</Filter>
+    <ClInclude Include="logger.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="fmt\chrono.h">
       <Filter>Source Files\fmt</Filter>
@@ -82,26 +80,26 @@
     <ClInclude Include="fmt\ranges.h">
       <Filter>Source Files\fmt</Filter>
     </ClInclude>
-    <ClInclude Include="logger.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\stub64\skCrypter.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\stub64\xor_encryption.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProxyJect.h">
-      <Filter>Source Files\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Injector.h">
-      <Filter>Source Files\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="skCrypter.h">
       <Filter>Source Files\obfuscate</Filter>
     </ClInclude>
     <ClInclude Include="xor_encryption.h">
       <Filter>Source Files\obfuscate</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StubClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcMan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Injector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="security.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

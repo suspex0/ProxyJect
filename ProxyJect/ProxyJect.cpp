@@ -1,19 +1,27 @@
 ﻿#include "ProxyJect.h"
-#include "../stub64/xor_encryption.h"
-#include "../stub64/skCrypter.h"
 #include "Injector.h"
+#include "xor_encryption.h"
+#include "skCrypter.h"
+#include "logger.hpp"
+
+using namespace Common;
+
+// Logger
+auto logger_instance = std::make_unique<logger>();
 
 ProxyJect::ProxyJect()
 {
-	common::init_logger(false);
-	inject_cfg = cfg.inject_cfg;
+	// Get config
+	cfg = new ConfigManager;
+	inject_cfg = cfg->inject_cfg;
 
-	common::set_console_visibility(inject_cfg.show_console);
-	common::disabled_log_write = inject_cfg.disable_log;
-	
+	// Set the config
+	set_console_visibility(inject_cfg.show_console);
+	logger_instance->disable_log(inject_cfg.disable_log);
 
 	ProxyJectLogo();
 
+	// Informations
 	if (inject_cfg.disable_log)
 		LOG_WARN("Loader logfiles are disabled.");
 	if(inject_cfg.disable_proxy_log)
@@ -24,14 +32,9 @@ ProxyJect::ProxyJect()
 		LOG_WARN("It is recommended to execute the ProxyJect-loader as administrator.");
 }
 
-ProxyJect::~ProxyJect()
-{
-	common::exit_log();
-}
-
 void ProxyJect::ProxyJectLogo()
 {
-	LOG_RAW(common::log_color::red | common::log_color::intensify,
+	LOG_RAW(log_color::red | log_color::intensify,
 		u8R"logo(
 
 	 ▄▄▄▄▄▄▄ ▄▄▄▄▄▄   ▄▄▄▄▄▄▄ ▄▄   ▄▄ ▄▄   ▄▄        ▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ 
@@ -42,7 +45,7 @@ void ProxyJect::ProxyJectLogo()
 	█   █   █   █  █ █       █   ▄   █ █   █    █       █   █▄▄▄█    █▄▄  █   █  
 	█▄▄▄█   █▄▄▄█  █▄█▄▄▄▄▄▄▄█▄▄█ █▄▄█ █▄▄▄█    █▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█ █▄▄▄█  )logo");
 
-	LOG_RAW(common::log_color::gray, "\n\n\tmade by blank | loader-version: 1.0\n\n");
+	LOG_RAW(log_color::gray, "\n\n\tmade by blank | loader-version: 1.1\n\n");
 }
 
 void ProxyJect::WaitForProxy()
@@ -82,12 +85,12 @@ void ProxyJect::ReceiveProxyHandle()
 		hProxy = dyn_OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD |  PROCESS_VM_OPERATION |  PROCESS_VM_WRITE | PROCESS_VM_READ, false, proxyID);
 	else
 	{
-		LOG_WARN("Cant create dynamic OpenProcess!");
+		LOG_WARN("Cant create dynamic version of OpenProcess! Fall back to normal function ;(");
 		hProxy = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, proxyID);
 	}
 
 #ifdef _DEBUG
-	LOG_RAW(common::log_color::green | common::log_color::intensify,"\tProxy process id: ", proxyID, "\n");
+	LOG_WARN("Proxy process id: ", proxyID);
 #endif // !_DEBUG
 
 	if (!hProxy || hProxy == INVALID_HANDLE_VALUE)
@@ -109,8 +112,7 @@ void ProxyJect::ReceiveProxyHandle()
 
 void ProxyJect::InjectProxy()
 {
-
-	if (cfg.CreateInjectionConfig())
+	if (cfg->CreateInjectionConfig())
 	{
 		LOG_INFO("Successfully created proxy setup.");
 	}
@@ -123,6 +125,8 @@ void ProxyJect::InjectProxy()
 	
 	/*
 	
+	// NEW INJETOR IN WORK
+
 	std::string Helper = cfg.stub64_dir;
 	std::wstring wHelper(Helper.begin(), Helper.end());
 	HINSTANCE__* hOut;
@@ -132,15 +136,15 @@ void ProxyJect::InjectProxy()
 	
 	*/
 
-	_Injector Injector(cfg.stub64_dir, hProxy, 0); // set inject-delay 0
+	_Injector Injector(cfg->stub64_dir, hProxy, 0); // inject-delay 0
 
 	if (Injector.ManualMap())
 		LOG_INFO("Successfully injected dll in to proxy process!");
 	else
 		LOG_ERROR("Error cant inject 'stub64.dll' in to the proxy target!");
 
-	
-	LOG_RAW(common::log_color::green | common::log_color::intensify, "\n\tExit process in 2 seconds..\n");
+	proc.close_handle_safe(hProxy);
+	LOG_RAW(log_color::green | log_color::intensify, "\n\tExit process in 2 seconds..\n");
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 

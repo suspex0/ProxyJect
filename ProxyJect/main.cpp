@@ -1,8 +1,6 @@
 ﻿#include "main.h"
 #include "ProxyJect.h"
 
-
-
 int main()
 {
 	try
