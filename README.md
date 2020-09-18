@@ -40,7 +40,7 @@ Log files of ProxyJect you find under C:\Users\username\AppData\Roaming\ProxyJec
 ### Special features
 - Proxy "stub.dll" file has string encryption to prevent any string based detection vectors
 - OpenProcess function is manually imported to hide windows-api call
-- Manually import Dll in to target process and resolve imports of it (not using LoadLibary or any similar windows-api calls)
+- Manually write Dll into target process and resolve imports of it (not using LoadLibary or any similar windows-api calls)
 
 ### Credits
 - fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
@@ -61,4 +61,5 @@ Log files of ProxyJect you find under C:\Users\username\AppData\Roaming\ProxyJec
 - Add option for multiple process that can be used as proxy and a random auto selection for current running applications
 - Add a more "hidden" way to communicate between loader and proxy process
 - Add a real GUI for the loader to setup the settings.
+- and more..
 ```
