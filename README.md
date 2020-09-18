@@ -38,15 +38,15 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 - OpenProcess function is manually imported to hide windows-api call
 
 ### Credits
-fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
-fleep
-
+- fmt lib [github.com/fmtlib/fmt](https://github.com/fmtlib/fmt)
+- fleep
+- Broihon
+- skCrypt [github.com/skadro-official/skCrypter](https://github.com/skadro-official/skCrypter)
+- XorString by LeFF
 
 ### To-do list
 ~ will be worked on in this order :wink: ~
-:done: Clean up code
-:done: Fix disable_log for stub64 
-:done: Fix show_console for stub64
+
 - Add x86 support the dll and proxy
 - Add encrypt loader and proxy communication
 - Add unlink proxy module
