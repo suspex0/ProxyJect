@@ -51,7 +51,7 @@ Log files of ProxyJect you find under C:\Users\username\AppData\Roaming\ProxyJec
 - XorString by LeFF
 
 ### To-do list
-~ will be worked on in this order :wink: ~
+
 ```
 - Add x86 support for the dll and proxy
 - Add encrypt loader and proxy communication
