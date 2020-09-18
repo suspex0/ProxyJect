@@ -1,5 +1,3 @@
-# ProxyJect
-
 ![image](https://github.com/suspex0/ProxyJect/blob/master/assets/logo.png)
 ## ALPHA VERSION STILL IN DEVELOPMENT
 Inject Dll over a proxy process in to your target process. 
