@@ -19,7 +19,7 @@ to bypass handle access-rights restrictions and/or to inject debugging tools int
 
 ### How to use?
 ```
-Log files of ProxyJect your find under C:\Users\username\AppData\Roaming\ProxyJect\
+Log files of ProxyJect you find under C:\Users\username\AppData\Roaming\ProxyJect\
 ```
 1. Download the latest build [here](https://github.com/suspex0/ProxyJect/releases) or compile your own version (make sure that you include the stub64.dll).
 2. Modify the **ProxyJect.json** file to your needs. If that file dosen't exist, run **ProxyJect.exe** once and it will auto-generate a config for you.
