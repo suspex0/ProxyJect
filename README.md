@@ -1,7 +1,8 @@
-# ProxyJect
-## ALPHA VERSION STILL IN DEVELOPMENT
-"LOGO HERE"
-Inject Dll over a proxy process in to your target process. 
+![image](https://github.com/suspex0/ProxyJect/blob/master/assets/logo.png)
+- Inject dll files over a proxy process in to your target process. 
+```
+ALPHA VERSION STILL IN DEVELOPMENT
+```
 
 ### What is ProxyJect?
 ProxyJect is POC (proof of concept) app for injecting dll files into a target process. The big difference to a usual injector is that dll file doesn't get injected directly into the target process. Instead, a **stub** dll will be loaded into a selectable **proxy-process** and from there the actual dll file gets injected into the target.
@@ -50,9 +51,10 @@ Log files of ProxyJect you find under C:\Users\username\AppData\Roaming\ProxyJec
 - XorString by LeFF
 
 ### To-do list
-~ will be worked on in this order :wink: ~
+
 ```
 - Add x86 support for the dll and proxy
+- Add handle hijack from proxy if a handle exist to target
 - Add encrypt loader and proxy communication
 - Add unlink proxy module
 - Add some generic options to randomize the proxy and loader 
