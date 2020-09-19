@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="HandleHijack.cpp" />
     <ClCompile Include="Injector.cpp" />
     <ClCompile Include="ProcMan.cpp" />
     <ClCompile Include="security.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="fmt\posix.h" />
     <ClInclude Include="fmt\printf.h" />
     <ClInclude Include="fmt\ranges.h" />
+    <ClInclude Include="HandleHijack.h" />
     <ClInclude Include="Injector.h" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="ProcMan.h" />

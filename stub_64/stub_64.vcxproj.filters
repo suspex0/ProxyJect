@@ -39,6 +39,9 @@
     <ClCompile Include="security.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HandleHijack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="logger.hpp">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="security.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HandleHijack.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 ﻿#include "StubClass.h"
-#include "skCrypter.h"
 
 using namespace Common;
 
@@ -167,7 +166,19 @@ bool StubClass::GetHandlebyOpenProcess()
 
 bool StubClass::GetHandleHijacked()
 {
-	// IN WORK
+	HandleHijack hHjiack;
+	LPDWORD error;
+	auto find = skCrypt("Trying to find a existing handle to the target process..");
+	LOG_INFO(find.decrypt());
+
+	if (hHjiack.FindHandle(inject_cfg.target_id, error, hTarget))
+	{
+		if (error == ERROR_SUCCESS && hTarget != NULL && hTarget != INVALID_HANDLE_VALUE)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void StubClass::ReceiveTargetHandle()
@@ -179,6 +190,8 @@ void StubClass::ReceiveTargetHandle()
 	}
 	else
 	{
+		auto error = skCrypt("Cant get a handle to target!");
+		LOG_ERROR(error.decrypt());
 		std::this_thread::sleep_for(std::chrono::seconds(3));
 		ExitProcess(EXIT_FAILURE);
 	}

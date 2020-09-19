@@ -31,7 +31,7 @@ BOOL HandleHijack::FindHandle(DWORD processId, LPDWORD& lastError, HANDLE& hProc
 	handleInfo = (PSYSTEM_HANDLE_INFORMATION)malloc(handleInfoSize);
 	ZeroMemory(handleInfo, handleInfoSize);
 
-	while ((status = _NtQuerySystemInformation(SystemHandleInformation, handleInfo, handleInfoSize, NULL)) == STATUS_INFO_LENGTH_MISMATCH)
+	while ((status = _NtQuerySystemInformation(SYSTEMINFORMATION_CLASS_::SystemHandleInformation, handleInfo, handleInfoSize, NULL)) == STATUS_INFO_LENGTH_MISMATCH)
 	{
 		handleInfoSize *= 2;
 		handleInfo = (PSYSTEM_HANDLE_INFORMATION)realloc(handleInfo, handleInfoSize); // ?!
@@ -54,7 +54,18 @@ BOOL HandleHijack::FindHandle(DWORD processId, LPDWORD& lastError, HANDLE& hProc
 
 		proc.close_handle_safe(processHandle);
 
-		processHandle = OpenProcess(PROCESS_DUP_HANDLE, false, handle.ProcessId);
+		typedef HANDLE(WINAPI* _OpenProcess)(DWORD desiredAccess, BOOL iHandle, DWORD processId);
+
+		_OpenProcess dyn_OpenProcess = NULL;
+		dyn_OpenProcess = (_OpenProcess)GetProcAddress(GetModuleHandleA(skCrypt("kernel32.dll")), skCrypt("OpenProcess"));
+
+		if (dyn_OpenProcess != NULL)
+			processHandle = dyn_OpenProcess(PROCESS_DUP_HANDLE, false, handle.ProcessId);
+		else
+		{ 
+			processHandle = OpenProcess(PROCESS_DUP_HANDLE, false, handle.ProcessId);
+		}
+
 		if (!processHandle || processHandle == INVALID_HANDLE_VALUE)
 			continue;
 
@@ -74,7 +85,6 @@ BOOL HandleHijack::FindHandle(DWORD processId, LPDWORD& lastError, HANDLE& hProc
 
 
 		hProcess = dupHandle;
-		printf("Available handle found on: %u\n", handle.ProcessId);
 		break;
 	}
 

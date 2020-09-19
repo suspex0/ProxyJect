@@ -51,7 +51,7 @@ namespace Common
 					std::filesystem::create_directory(m_file_path);
 				}
 
-				m_file_path /= "ProxyJect-proxy.log";
+				m_file_path /= "ProxyJect-loader.log";
 				if(!disabled_log)
 					m_file_out.open(m_file_path, std::ios_base::out | std::ios_base::trunc);
 			}
@@ -69,7 +69,7 @@ namespace Common
 				SetConsoleOutputCP(CP_UTF8);
 
 				m_console_out.open("CONOUT$", std::ios_base::out | std::ios_base::app);
-				freopen_s(&fp, "CONIN$", "r", stdin);
+				// freopen_s(&fp, "CONIN$", "r", stdin);
 			}
 
 			_logger = this;
@@ -83,8 +83,8 @@ namespace Common
 				m_console_out.close();
 			}
 
-			if (fp)
-				fclose(fp);
+			//if (fp)
+				// fclose(fp);
 
 			_logger = nullptr;
 		}
@@ -172,7 +172,7 @@ namespace Common
 		bool m_did_console_exist{};
 		HANDLE m_console_handle{};
 		std::ofstream m_console_out;
-		FILE* fp = NULL;
+		// FILE* fp = NULL;
 		std::filesystem::path m_file_path;
 		std::ofstream m_file_out;
 	};

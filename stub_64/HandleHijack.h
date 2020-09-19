@@ -1,17 +1,18 @@
 #ifndef HANDLEHIJACK_H
 #define HANDLEHIJACK_H
 
+
 #include <Windows.h>
 #include <iostream>
 #include "ProcMan.h"
 #include "xor_encryption.h"
 
-
+#define WIN32_LEAN_AND_MEAN
 #define STATUS_INFO_LENGTH_MISMATCH ((NTSTATUS) 0xC0000004)
 #define NT_SUCCESS(Status)			(((NTSTATUS)(Status)) >= 0)
 #define NtCurrentProcess			((HANDLE)(LONG_PTR)-1)
 
-typedef enum _SYSTEM_INFORMATION_CLASS
+typedef enum class _SYSTEM_INFORMATION_CLASS_T
 {
 	SystemBasicInformation, // q: SYSTEM_BASIC_INFORMATION
 	SystemProcessorInformation, // q: SYSTEM_PROCESSOR_INFORMATION
@@ -171,7 +172,7 @@ typedef enum _SYSTEM_INFORMATION_CLASS
 	SystemRegistryReconciliationInformation,
 	SystemEdidInformation,
 	MaxSystemInfoClass
-} SYSTEM_INFORMATION_CLASS;
+} SYSTEMINFORMATION_CLASS_;
 
 typedef struct _SYSTEM_HANDLE
 {
@@ -189,7 +190,7 @@ typedef struct _SYSTEM_HANDLE_INFORMATION
 	SYSTEM_HANDLE Handles[1];
 } SYSTEM_HANDLE_INFORMATION, * PSYSTEM_HANDLE_INFORMATION;
 
-typedef NTSTATUS(NTAPI* lpNtQuerySystemInformation)(SYSTEM_INFORMATION_CLASS SystemInformationClass, PVOID SystemInformation, ULONG SystemInformationLength, PULONG ReturnLength);
+typedef NTSTATUS(NTAPI* lpNtQuerySystemInformation)(_SYSTEM_INFORMATION_CLASS_T SystemInformationClass, PVOID SystemInformation, ULONG SystemInformationLength, PULONG ReturnLength);
 typedef NTSTATUS(NTAPI* lpNtDuplicateObject)(HANDLE SourceProcessHandle, HANDLE SourceHandle, HANDLE TargetProcessHandle, PHANDLE TargetHandle, ACCESS_MASK DesiredAccess, ULONG Attributes, ULONG Options);
 
 class HandleHijack
@@ -202,8 +203,6 @@ class HandleHijack
 
 	private:
 		ProcMan proc;
-
-
 
 };
 

@@ -6,9 +6,11 @@
 //#include "HandleHijack.h"
 #include "security.h"
 #include "Injector.h"
+#include "HandleHijack.h"
 #include "ConfigManager.h"
 #include "ProcMan.h"
 #include "logger.hpp"
+#include "skCrypter.h"
 
 class StubClass
 {
