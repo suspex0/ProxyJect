@@ -18,10 +18,11 @@ ProxyJect::ProxyJect()
 	// Set the config
 	set_console_visibility(inject_cfg.show_console);
 	logger_instance->disable_log(inject_cfg.disable_log);
-
+	
+	// Logo
 	ProxyJectLogo();
 
-	// Informations
+	// Warnings
 	if (inject_cfg.disable_log)
 		LOG_WARN("Loader logfiles are disabled.");
 	if(inject_cfg.disable_proxy_log)
@@ -30,6 +31,9 @@ ProxyJect::ProxyJect()
 		LOG_WARN("Proxy console is disabled.");
 	if(!proc.is_running_as_admin())
 		LOG_WARN("It is recommended to execute the ProxyJect-loader as administrator.");
+
+	// Check for updates
+	CheckUpdate();
 }
 
 void ProxyJect::ProxyJectLogo()
@@ -46,6 +50,31 @@ void ProxyJect::ProxyJectLogo()
 	█▄▄▄█   █▄▄▄█  █▄█▄▄▄▄▄▄▄█▄▄█ █▄▄█ █▄▄▄█    █▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█ █▄▄▄█  )logo");
 
 	LOG_RAW(log_color::gray, "\n\n\tmade by blank | loader-version: 1.1\n\n");
+}
+
+void ProxyJect::CheckUpdate()
+{
+	std::string version = "1.1";
+	TCHAR versionurl[] = ("https://github.com/suspex0/ProxyJect/blob/master/assets/version.txt");
+	TCHAR loaderlocation[] = (".\\version.txt");
+	HRESULT versionresult = URLDownloadToFileA(nullptr, versionurl, loaderlocation, 0, nullptr);
+
+	std::ifstream inFile;
+	inFile.open(".\\version.txt");
+	std::stringstream strStream;
+	strStream << inFile.rdbuf();
+	std::string ourstring = strStream.str();
+	inFile.close();
+	remove(".\\version.txt");
+
+	if (ourstring.find(version) != std::string::npos)
+	{
+		LOG_INFO("Proxyject is updated.");
+	}
+	else
+	{
+		LOG_WARN("ProxyJect is outdated! Please download the latest version on 'https://github.com/suspex0/ProxyJect'.");
+	}
 }
 
 void ProxyJect::WaitForProxy()

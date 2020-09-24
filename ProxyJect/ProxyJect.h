@@ -1,5 +1,9 @@
 #pragma once
 #include "main.h"
+#include <Urlmon.h>
+#include <WinInet.h>
+
+#pragma comment (lib, "UrlMon.lib")
 
 // Custome header
 #include "logger.hpp"
@@ -13,6 +17,7 @@ class ProxyJect
 		ProxyJect();
 
 		void ProxyJectLogo();
+		void CheckUpdate();
 		void WaitForProxy();
 		void ReceiveProxyHandle();
 		void InjectProxy();
