@@ -55,7 +55,7 @@ void StubClass::ProxyJectLogo()
 
 
 	LOG_RAW(log_color::green | log_color::intensify, logo.decrypt());
-	auto made_by = skCrypt("\n\n\tmade by blank | proxy64-version: 1.1\n\n");
+	auto made_by = skCrypt("\n\n\tmade by blank | proxy64-version: 1.2\n\n");
 	LOG_RAW(log_color::gray, made_by.decrypt());
 }
 
