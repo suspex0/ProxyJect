@@ -166,35 +166,35 @@ bool StubClass::GetHandlebyOpenProcess()
 
 bool StubClass::GetHandleHijacked()
 {
-	HandleHijack hHjiack;
-	LPDWORD error;
-	auto find = skCrypt("Trying to find a existing handle to the target process..");
-	LOG_INFO(find.decrypt());
-
-	if (hHjiack.FindHandle(inject_cfg.target_id, error, hTarget))
-	{
-		if (error == ERROR_SUCCESS && hTarget != NULL && hTarget != INVALID_HANDLE_VALUE)
-		{
-			return true;
-		}
-	}
-	return false;
+	// need to get exe name also if only window name id declared	
+	return get_handle_hijacked(inject_cfg.target_id, inject_cfg.target_exe.c_str(), hTarget);
 }
 
 void StubClass::ReceiveTargetHandle()
 {
-	if (GetHandlebyOpenProcess())
+	if (GetHandleHijacked())
 	{
-		auto got_handle = skCrypt("Received valid handle from target process.");
+		auto got_handle = skCrypt("Received valid hijacked handle from target process..");
 		LOG_INFO(got_handle.decrypt());
 	}
 	else
 	{
-		auto error = skCrypt("Cant get a handle to target!");
-		LOG_ERROR(error.decrypt());
-		std::this_thread::sleep_for(std::chrono::seconds(3));
-		ExitProcess(EXIT_FAILURE);
+
+		if (GetHandlebyOpenProcess())
+		{
+			auto got_handle = skCrypt("Received a valid handle from target process with OpenProcess.");
+			LOG_INFO(got_handle.decrypt());
+		}
+		else
+		{
+			auto error = skCrypt("Cant get a handle to target!");
+			LOG_ERROR(error.decrypt());
+			std::this_thread::sleep_for(std::chrono::seconds(3));
+			ExitProcess(EXIT_FAILURE);
+		}
 	}
+
+	
 }
 
 void StubClass::InjectDll()

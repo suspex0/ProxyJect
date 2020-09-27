@@ -22,6 +22,7 @@ class StubClass
 
 		int  MainThread();
 		void ProxyJectLogo();
+		void CheckUpdate();
 		void InitInjection();
 		bool GetHandleHijacked();
 		bool GetHandlebyOpenProcess();

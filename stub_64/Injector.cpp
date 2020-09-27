@@ -246,7 +246,7 @@ BOOL _Injector::ManualMap()
 
 	// Check 
 	HINSTANCE hCheck = NULL;
-	bool checked = FALSE;
+	BOOL checked = FALSE;
 
 	while (!checked)
 	{

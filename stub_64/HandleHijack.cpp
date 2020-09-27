@@ -1,101 +1,82 @@
 #include "HandleHijack.h"
 #include "logger.hpp"
 
-static HMODULE hNtdll = nullptr;
-static lpNtQuerySystemInformation _NtQuerySystemInformation = nullptr;
-static lpNtDuplicateObject _NtDuplicateObject = nullptr;
-
-HandleHijack::HandleHijack()
+NTSTATUS enumerateHandles(std::function<NTSTATUS(PSYSTEM_HANDLE_TABLE_ENTRY_INFO)> callback)
 {
-	// Import functions
-	hNtdll = LoadLibraryW(L"ntdll.dll");
-	_NtDuplicateObject = (lpNtDuplicateObject)GetProcAddress(hNtdll, "NtDuplicateObject");
-	_NtQuerySystemInformation = (lpNtQuerySystemInformation)GetProcAddress(hNtdll, "NtQuerySystemInformation");
+	NTSTATUS status = STATUS_UNSUCCESSFUL;
+	void* buffer = NULL;
+	unsigned long bufferSize = 0;
+
+	while (true) {
+		status = NtQuerySystemInformation((SYSTEM_INFORMATION_CLASS)SystemHandleInformation, buffer, bufferSize, &bufferSize);
+		if (!NT_SUCCESS(status)) {
+			if (status == STATUS_INFO_LENGTH_MISMATCH) {
+				if (buffer != NULL)
+					VirtualFree(buffer, 0, MEM_RELEASE);
+				buffer = VirtualAlloc(NULL, bufferSize, MEM_COMMIT, PAGE_READWRITE);
+				continue;
+			}
+			break;
+		}
+		else {
+			PSYSTEM_HANDLE_INFORMATION handleInfo = (PSYSTEM_HANDLE_INFORMATION)buffer;
+			for (unsigned long i = 0; i < handleInfo->NumberOfHandles; i++) {
+				auto handle = &handleInfo->Handles[i];
+				status = callback(handle);
+				if (NT_SUCCESS(status))
+					break;
+			}
+			break;
+		}
+	}
+
+	if (buffer != NULL)
+		VirtualFree(buffer, 0, MEM_RELEASE);
+	return status;
 }
 
-BOOL HandleHijack::FindHandle(DWORD processId, LPDWORD& lastError, HANDLE& hProcess)
-{
-	if (!_NtDuplicateObject || !_NtDuplicateObject)
+bool get_handle_hijacked(DWORD pid, const char* process, HANDLE& hProc) {
+	bool found = false;
+	try
 	{
-		LOG_ERROR("Couldnt import function for handle hijacking!");
-		return FALSE;
+		ProcMan procM;
+		enumerateHandles([&](PSYSTEM_HANDLE_TABLE_ENTRY_INFO handle) -> NTSTATUS
+			{
+				if (pid != handle->UniqueProcessId)
+					return STATUS_UNSUCCESSFUL;
+
+
+				void* buffer = NULL;
+				unsigned long bufferSize = 0x100;
+				NTSTATUS status;
+
+				if (handle->ObjectTypeIndex == ProcessTypeIndex) {
+					wchar_t processPath[MAX_PATH] = {};
+
+					if (GetModuleFileNameExW((HANDLE)handle->HandleValue, NULL, processPath, MAX_PATH)) {
+						std::wstring filename = PathFindFileNameW(processPath);
+						std::string helper(filename.begin(), filename.end());
+						if (!strcmp(process, helper.c_str())) {
+							found = true;
+							hProc = (HANDLE)handle->HandleValue;
+						}
+					}
+				}
+
+				// stop enumeration
+				if (found) return STATUS_SUCCESS;
+
+				return STATUS_UNSUCCESSFUL;
+			});
+
+		// check
+		if (hProc == NULL || hProc == INVALID_HANDLE_VALUE)
+			return false;
 	}
-	else
-		LOG_INFO("Trying to find a hijackable handle..");
-
-	NTSTATUS status = 0;
-	ULONG handleInfoSize = 0x10000;
-	PSYSTEM_HANDLE_INFORMATION handleInfo = 0;
-	HANDLE processHandle = nullptr;
-
-	handleInfo = (PSYSTEM_HANDLE_INFORMATION)malloc(handleInfoSize);
-	ZeroMemory(handleInfo, handleInfoSize);
-
-	while ((status = _NtQuerySystemInformation(SYSTEMINFORMATION_CLASS_::SystemHandleInformation, handleInfo, handleInfoSize, NULL)) == STATUS_INFO_LENGTH_MISMATCH)
+	catch (std::exception& ex)
 	{
-		handleInfoSize *= 2;
-		handleInfo = (PSYSTEM_HANDLE_INFORMATION)realloc(handleInfo, handleInfoSize); // ?!
+		return false;
 	}
 
-	if (!NT_SUCCESS(status)) {
-		free(handleInfo);
-		*lastError = GetLastError();
-		LOG_ERROR("Could receive handle informations! Error: ", lastError);
-		return FALSE;
-	}
-
-	for (ULONG i = 0; i < handleInfo->HandleCount; i++)
-	{
-		auto handle = handleInfo->Handles[i];
-		HANDLE dupHandle = NULL;
-
-		if (handle.ObjectTypeNumber != 0x5 && handle.ObjectTypeNumber != 0x7) /* Filter only process handles */
-			continue;
-
-		proc.close_handle_safe(processHandle);
-
-		typedef HANDLE(WINAPI* _OpenProcess)(DWORD desiredAccess, BOOL iHandle, DWORD processId);
-
-		_OpenProcess dyn_OpenProcess = NULL;
-		dyn_OpenProcess = (_OpenProcess)GetProcAddress(GetModuleHandleA(skCrypt("kernel32.dll")), skCrypt("OpenProcess"));
-
-		if (dyn_OpenProcess != NULL)
-			processHandle = dyn_OpenProcess(PROCESS_DUP_HANDLE, false, handle.ProcessId);
-		else
-		{ 
-			processHandle = OpenProcess(PROCESS_DUP_HANDLE, false, handle.ProcessId);
-		}
-
-		if (!processHandle || processHandle == INVALID_HANDLE_VALUE)
-			continue;
-
-
-		status = _NtDuplicateObject(processHandle, (HANDLE)handle.Handle, NtCurrentProcess, &dupHandle, PROCESS_ALL_ACCESS, 0, 0);
-		if (!NT_SUCCESS(status))
-		{
-			*lastError = GetLastError();
-			continue;
-		}
-
-
-		if (GetProcessId(dupHandle) != processId) {
-			proc.close_handle_safe(dupHandle);
-			continue;
-		}
-
-
-		hProcess = dupHandle;
-		break;
-	}
-
-	free(handleInfo);
-	proc.close_handle_safe(processHandle);
-
-	if (!hProcess)
-		return FALSE;
-
-	SetLastError(ERROR_SUCCESS);
-
-	return TRUE;
+	return found;
 }
-
