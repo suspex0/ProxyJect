@@ -49,12 +49,12 @@ void ProxyJect::ProxyJectLogo()
 	█   █   █   █  █ █       █   ▄   █ █   █    █       █   █▄▄▄█    █▄▄  █   █  
 	█▄▄▄█   █▄▄▄█  █▄█▄▄▄▄▄▄▄█▄▄█ █▄▄█ █▄▄▄█    █▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█ █▄▄▄█  )logo");
 
-	LOG_RAW(log_color::gray, "\n\n\tmade by blank | loader-version: 1.1\n\n");
+	LOG_RAW(log_color::gray, "\n\n\tmade by blank | loader-version: 1.2\n\n");
 }
 
 void ProxyJect::CheckUpdate()
 {
-	std::string version = "1.1";
+	std::string version = "1.2";
 	TCHAR versionurl[] = ("https://github.com/suspex0/ProxyJect/blob/master/assets/version.txt");
 	TCHAR loaderlocation[] = (".\\version.txt");
 	HRESULT versionresult = URLDownloadToFileA(nullptr, versionurl, loaderlocation, 0, nullptr);
